@@ -5,6 +5,7 @@ uses:
 - firebase
 - react-native
 - redux
+- redux-thunk
 
 supports:
 - iOS
