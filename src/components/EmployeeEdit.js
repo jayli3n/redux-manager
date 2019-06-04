@@ -7,6 +7,13 @@ import { employeeEdit, employeeUpdate } from '../actions';
 import EmployeeForm from './EmployeeForm';
 
 class EmployeeEdit extends Component {
+	constructor() {
+		super();
+		this.state = {
+			showModal: false
+		};
+	}
+
 	componentWillMount() {
 		_.each(this.props.employee, (value, prop) => {
 			this.props.employeeUpdate({ prop, value });
@@ -24,7 +31,9 @@ class EmployeeEdit extends Component {
 	}
 
 	onFirePress() {
-
+		this.setState({
+			showModal: !this.state.showModal
+		});
 	}
 
 	render() {
@@ -52,6 +61,10 @@ class EmployeeEdit extends Component {
 						Fire Employee
 					</Button>
 				</CardSection>
+
+				<ConfirmModal visible={this.state.showModal}>
+					{`Are you sure you want to fire ${this.props.name}?`}
+				</ConfirmModal>
 			</Card>
 		);
 	}
