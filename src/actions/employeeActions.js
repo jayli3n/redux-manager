@@ -32,6 +32,25 @@ export const employeeCreate = ({ name, phone, shift }) => {
 	};
 };
 
+export const employeeEdit = ({ name, phone, shift, uid }) => {
+	const { currentUser } = firebase.auth();
+	const dbRef = firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`);
+
+	return (dispatch) => {
+		dbRef.set({
+			name,
+			phone,
+			shift
+		})
+		.then(() => { 
+			dispatch({
+				type: EMPLOYEE_CREATED,
+			});
+			Actions.pop();
+		});
+	};
+};
+
 export const employeesFetch = () => {
 	const { currentUser } = firebase.auth();
 	const dbRef = firebase.database().ref(`/users/${currentUser.uid}/employees`);
