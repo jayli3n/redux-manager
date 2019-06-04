@@ -23,7 +23,7 @@ class EmployeeList extends Component {
 		return (
 			<Card>
 				<CardSection>
-					<Text style={styles.titleStyle}>Hello, {user.email}</Text>
+					<Text style={styles.titleStyle}>{`Hello, ${user.email}`}</Text>
 				</CardSection>
 				<FlatList 
 					data={employees}
