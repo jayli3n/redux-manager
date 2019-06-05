@@ -31,7 +31,7 @@ class EmployeeEdit extends Component {
 	}
 
 	onFireConfirm() {
-		this.props.employeeDelete(this.props.employee.uid);
+		this.props.employeeDelete({ uid: this.props.employee.uid });
 	}
 
 	toggleModal() {
