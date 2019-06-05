@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Communications from 'react-native-communications';
 import { Card, CardSection, Button, ConfirmModal } from './common';
-import { employeeEdit, employeeUpdate } from '../actions';
+import { employeeEdit, employeeUpdate, employeeDelete } from '../actions';
 import EmployeeForm from './EmployeeForm';
 
 class EmployeeEdit extends Component {
@@ -30,7 +30,11 @@ class EmployeeEdit extends Component {
 		Communications.text(phone, `Your upcoming shift is on ${shift}`);
 	}
 
-	onFirePress() {
+	onFireConfirm() {
+		this.props.employeeDelete(this.props.employee.uid);
+	}
+
+	toggleModal() {
 		this.setState({
 			showModal: !this.state.showModal
 		});
@@ -56,13 +60,17 @@ class EmployeeEdit extends Component {
 				</CardSection>
 				<CardSection>
 					<Button
-						onPress={() => this.onFirePress()}
+						onPress={() => this.toggleModal()}
 					>
 						Fire Employee
 					</Button>
 				</CardSection>
 
-				<ConfirmModal visible={this.state.showModal}>
+				<ConfirmModal 
+					visible={this.state.showModal}
+					onAccept={() => this.onFireConfirm()}
+					onDecline={() => this.toggleModal()}
+				>
 					{`Are you sure you want to fire ${this.props.name}?`}
 				</ConfirmModal>
 			</Card>
@@ -79,4 +87,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { employeeUpdate, employeeEdit })(EmployeeEdit);
+export default connect(mapStateToProps, { employeeUpdate, employeeEdit, employeeDelete })(EmployeeEdit);
